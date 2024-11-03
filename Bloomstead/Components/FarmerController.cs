@@ -1,4 +1,3 @@
-using System;
 using LumiEngine;
 using LumiEngine.Input;
 using Microsoft.Xna.Framework;
@@ -10,15 +9,21 @@ public class FarmerController : Component
 {
     // Components
     private Rigidbody _rb;
+    private Animator _anim;
     
+    // Movement
     private Vector2 _input = Vector2.Zero;
     private float _moveSpeed = 300f;
+    private Directions _dir = Directions.Down;
     
     public override void OnStart()
     {
         base.OnStart();
         
         _rb = GameObject.GetComponent<Rigidbody>();
+        _anim = GameObject.GetComponent<Animator>();
+        
+        _anim.PlayAnimation("idle_right");
     }
 
     public override void OnUpdate()
@@ -27,25 +32,42 @@ public class FarmerController : Component
         
         HandleInputs();
         Move();
+        HandleAnimations();
     }
 
     private void HandleInputs()
     {
         KeyboardHandler.GetState();
-        
+
         if (KeyboardHandler.IsDown(Keys.W))
+        {
             _input.Y = -1f;
+            _dir = Directions.Up;
+        }
         else if (KeyboardHandler.IsDown(Keys.S))
+        {
             _input.Y = 1f;
+            _dir = Directions.Down;
+        }
         else
+        {
             _input.Y = 0f;
-        
+        }
+
         if (KeyboardHandler.IsDown(Keys.A))
+        {
             _input.X = -1f;
+            _dir = Directions.Left;
+        }
         else if (KeyboardHandler.IsDown(Keys.D))
+        {
             _input.X = 1f;
+            _dir = Directions.Right;
+        }
         else
+        {
             _input.X = 0f;
+        }
     }
     
     private void Move()
@@ -57,5 +79,59 @@ public class FarmerController : Component
         }
         
         _rb.Velocity = new Vector2(_input.X * _moveSpeed, _input.Y * _moveSpeed);
+    }
+
+    private void HandleAnimations()
+    {
+        HandleIdleAnimations();
+        HandleWalkAnimations();
+    }
+
+    private void HandleIdleAnimations()
+    {
+        if (_input.X != 0 || _input.Y != 0) return;
+
+        switch (_dir)
+        {
+            case Directions.Up:
+                _anim.PlayAnimation("idle_up");
+                break;
+            case Directions.Down:
+                _anim.PlayAnimation("idle_down");
+                break;
+            case Directions.Left:
+                _anim.PlayAnimation("idle_left");
+                break;
+            case Directions.Right:
+                _anim.PlayAnimation("idle_right");
+                break;
+            default:
+                _anim.PlayAnimation("idle_down");
+                break;
+        }
+    }
+    
+    private void HandleWalkAnimations()
+    {
+        if (_input is { X: 0, Y: 0 }) return;
+
+        switch (_dir)
+        {
+            case Directions.Up:
+                _anim.PlayAnimation("walk_up");
+                break;
+            case Directions.Down:
+                _anim.PlayAnimation("walk_down");
+                break;
+            case Directions.Left:
+                _anim.PlayAnimation("walk_left");
+                break;
+            case Directions.Right:
+                _anim.PlayAnimation("walk_right");
+                break;
+            default:
+                _anim.PlayAnimation("walk_down");
+                break;
+        }
     }
 }

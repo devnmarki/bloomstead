@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using LumiEngine;
 using LumiEngine;
@@ -57,5 +58,63 @@ public class Scene
                 component.OnDraw();
             }
         }
+    }
+    
+    public GameObject FindGameObjectByTag(string tag)
+    {
+        GameObject target = null;
+        foreach (GameObject gameObject in _gameObjects)
+        {
+            if (gameObject.Tag == tag)
+            {
+                target = gameObject;
+            }
+        }
+
+        if (target == null)
+            Console.WriteLine("Couldn't find game object with tag " + tag);
+        
+        return target;
+    }
+
+    public List<GameObject> FindGameObjectsByTag(string tag)
+    {
+        List<GameObject> targets = new List<GameObject>();
+        foreach (GameObject gameObject in _gameObjects)
+        {
+            if (gameObject.Tag == tag)
+                targets.Add(gameObject);
+        }
+
+        return targets;
+    }
+
+    public GameObject FindGameObjectByName(string name)
+    {
+        GameObject target = null;
+        foreach (GameObject gameObject in _gameObjects)
+        {
+            if (gameObject.Name == name)
+            {
+                target = gameObject;
+            }
+        }
+        
+        if (target == null)
+            Console.WriteLine("Couldn't find game object with name " + name);
+
+        return target;
+    }
+    
+    public List<GameObject> FindGameObjectsByName(string name)
+    {
+        List<GameObject> targets = new List<GameObject>();
+        foreach (GameObject gameObject in _gameObjects)
+        {
+            if (gameObject.Name == name)
+                targets.Add(gameObject);
+        }
+
+        return targets;
     }
 }
