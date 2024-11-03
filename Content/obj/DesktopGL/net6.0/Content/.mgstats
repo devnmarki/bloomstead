@@ -1,0 +1,2 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"D:/Dev/Game Dev/C# - MonoGame/Bloomstead/Content/sprites/tilesets/overworld_tileset.png","D:/Dev/Game Dev/C# - MonoGame/Bloomstead/Content/bin/DesktopGL/Content/sprites/tilesets/overworld_tileset.xnb","TextureProcessor","Texture2DContent",357,12373,0.2850422
