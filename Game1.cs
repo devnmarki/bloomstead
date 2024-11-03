@@ -1,4 +1,7 @@
-﻿using LumiEngine;
+﻿using Bloomstead.Bloomstead.Game_Objects;
+using LumiEngine;
+using LumiEngine.Input;
+using LumiEngine.LevelEditor;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -35,6 +38,8 @@ public class Game1 : Game
         
         SceneManager.AddScene("overworld", new OverworldScene());
         
+        TilemapManager.AddGameObjectToLoad("Farmer", () => new Farmer());
+        
         SceneManager.ChangeScene("overworld");
     }
 
@@ -44,9 +49,17 @@ public class Game1 : Game
             Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
+        KeyboardHandler.GetState();
+        
         Config.Time = gameTime;
         
-        SceneManager.CurrentScene.Update();
+        if (KeyboardHandler.IsPressed(Keys.R))
+            SceneManager.RefreshCurrentScene();
+        
+        if (KeyboardHandler.IsPressed(Keys.Tab))
+            Config.DebugMode = !Config.DebugMode;
+        
+        SceneManager.UpdateCurrentScene();
         
         base.Update(gameTime);
     }
@@ -55,8 +68,8 @@ public class Game1 : Game
     {
         GraphicsDevice.Clear(Color.White);
         
-        Config.Batch.Begin(SpriteSortMode.BackToFront, null, SamplerState.PointClamp);
-        SceneManager.CurrentScene.Render();
+        Config.Batch.Begin(SpriteSortMode.BackToFront, null, SamplerState.PointClamp, transformMatrix: Config.Camera.GetTransformation());
+        SceneManager.RenderCurrentScene();
         Config.Batch.End();
         
         base.Draw(gameTime);

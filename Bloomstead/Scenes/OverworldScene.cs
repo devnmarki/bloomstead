@@ -1,10 +1,9 @@
+using System;
 using Bloomstead.Bloomstead;
+using Bloomstead.Bloomstead.Game_Objects;
 using LumiEngine;
 using LumiEngine.LevelEditor;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using TiledSharp;
-// ReSharper disable CheckNamespace
 
 namespace Bloomstead;
 
@@ -17,12 +16,27 @@ public class OverworldScene : Scene
         base.Start();
         
         _tilemapManager = new TilemapManager(Assets.Maps.Overworld, Assets.Tilesets.Overworld);
+        _tilemapManager.LoadGameObjects();
+        
+        if (FindGameObjectByTag("farmer") is Farmer farmer)
+            farmer.TilemapManager = _tilemapManager;
+    }
+
+    public override void Update()
+    {
+        base.Update();
+        
+        if (FindGameObjectByTag("farmer") is Farmer farmer)
+        {
+            Config.CameraX += (farmer.Transform.Position.X - Config.CameraX - (Config.WindowWidth / 2f) - (4 * Config.GameScale / 2f));
+            Config.CameraY += (farmer.Transform.Position.Y - Config.CameraY - (Config.WindowHeight / 2f) - (4 * Config.GameScale / 2f));
+        }
     }
 
     public override void Render()
     {
         base.Render();
         
-        _tilemapManager.Draw(Vector2.Zero, 0.99f);
+        _tilemapManager.Draw("Tiles", Vector2.Zero, 0.75f);
     }
 }

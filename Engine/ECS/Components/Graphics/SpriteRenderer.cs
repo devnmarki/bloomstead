@@ -73,9 +73,10 @@ public class SpriteRenderer : Component
 
     private void DrawSingleSprite()
     {
+        Vector2 position = GameObject.Transform.Position - new Vector2(Config.CameraX, Config.CameraY) - SpriteOffset;
         Config.Batch.Draw(
             _sprite,
-            GameObject.Transform.Position - new Vector2(Config.CameraX, Config.CameraY) - SpriteOffset,
+            position,
             null,
             Color.White,
             0f,
@@ -87,9 +88,10 @@ public class SpriteRenderer : Component
 
     private void DrawFromSpritesheet()
     {
+        Vector2 position = GameObject.Transform.Position - new Vector2(Config.CameraX, Config.CameraY) - SpriteOffset;
         Config.Batch.Draw(
             _spritesheet.Texture,
-            GameObject.Transform.Position - new Vector2(Config.CameraX, Config.CameraY) - SpriteOffset,
+            position,
             _spritesheet.Sprites[_spriteIndex],
             Color.White,
             0f,
@@ -101,9 +103,10 @@ public class SpriteRenderer : Component
     
     public void DrawAnimation(Spritesheet spritesheet, Rectangle sprite)
     {
+        Vector2 position = GameObject.Transform.Position - new Vector2(Config.CameraX, Config.CameraY) - SpriteOffset;
         Config.Batch.Draw(
             spritesheet.Texture,
-            GameObject.Transform.Position - new Vector2(Config.CameraX, Config.CameraY) - SpriteOffset,
+            position,
             sprite,
             Color.White,
             0f,

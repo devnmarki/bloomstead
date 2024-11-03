@@ -94,64 +94,6 @@ public class GameObject
     {
         return _components.OfType<T>().Any();
     }
-
-    public GameObject FindGameObjectByTag(string tag)
-    {
-        GameObject target = null;
-        foreach (GameObject gameObject in SceneManager.CurrentScene.GameObjects)
-        {
-            if (gameObject.Tag == tag)
-            {
-                target = gameObject;
-            }
-        }
-
-        if (target == null)
-            Console.WriteLine("Couldn't find game object with tag " + tag);
-        
-        return target;
-    }
-
-    public List<GameObject> FindGameObjectsByTag(string tag)
-    {
-        List<GameObject> targets = new List<GameObject>();
-        foreach (GameObject gameObject in SceneManager.CurrentScene.GameObjects)
-        {
-            if (gameObject.Tag == tag)
-                targets.Add(gameObject);
-        }
-
-        return targets;
-    }
-
-    public GameObject FindGameObjectByName(string name)
-    {
-        GameObject target = null;
-        foreach (GameObject gameObject in SceneManager.CurrentScene.GameObjects)
-        {
-            if (gameObject.Name == name)
-            {
-                target = gameObject;
-            }
-        }
-        
-        if (target == null)
-            Console.WriteLine("Couldn't find game object with name " + name);
-
-        return target;
-    }
-    
-    public List<GameObject> FindGameObjectsByName(string name)
-    {
-        List<GameObject> targets = new List<GameObject>();
-        foreach (GameObject gameObject in SceneManager.CurrentScene.GameObjects)
-        {
-            if (gameObject.Name == name)
-                targets.Add(gameObject);
-        }
-
-        return targets;
-    }
     
     public static Vector2 MoveTowards(Vector2 current, Vector2 target, float maxDistanceDelta)
     {

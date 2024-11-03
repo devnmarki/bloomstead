@@ -23,10 +23,6 @@
         <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303"/>
         <PackageReference Include="TiledSharp" Version="1.0.1" />
     </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Bloomstead\Components\" />
-      <Folder Include="Bloomstead\Game Objects\" />
-    </ItemGroup>
     <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
         <Message Text="Restoring dotnet tools" Importance="High"/>
         <Exec Command="dotnet tool restore"/>
