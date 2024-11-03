@@ -4,9 +4,11 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>D:/Dev/Game Dev/C# - MonoGame/Bloomstead/Content/sprites/characters/character_base_spritesheet.png</File>
     <File>D:/Dev/Game Dev/C# - MonoGame/Bloomstead/Content/sprites/tilesets/overworld_tileset.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>
