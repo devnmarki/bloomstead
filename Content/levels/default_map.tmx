@@ -50,7 +50,7 @@
 </data>
  </layer>
  <objectgroup id="3" name="Game Objects">
-  <object id="1" name="Farmer" x="32" y="32">
+  <object id="1" name="Farmer" x="240" y="144">
    <point/>
   </object>
  </objectgroup>

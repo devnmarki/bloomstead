@@ -33,6 +33,11 @@ public class Animator : Component
         }
     }
 
+    public bool IsCurrentAnimationFinsihed()
+    {
+        return CurrentAnimation != null && CurrentAnimation.HasFinished;
+    }
+
     public override void OnUpdate()
     {
         base.OnUpdate();

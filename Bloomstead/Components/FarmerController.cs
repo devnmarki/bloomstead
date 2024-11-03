@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Bloomstead.Bloomstead.Game_Objects;
 using LumiEngine;
@@ -21,9 +22,15 @@ public class FarmerController : Component
     private float _moveSpeed = 300f;
     private Directions _dir = Directions.Down;
 
+    // Hitbox
     private Hitbox _hitbox;
     private Vector2 _hitboxPos;
     private TilemapManager _tilemapManager;
+    
+    // Farming
+    private ButtonState _previousLeftMouseButtonState = ButtonState.Released;
+    private List<Soil> _soilTiles = new List<Soil>();
+    private bool _isGathering = false;
 
     public FarmerController(TilemapManager tilemapManager)
     {
@@ -51,12 +58,14 @@ public class FarmerController : Component
         Move();
         HandleHitbox();
         HandleAnimations();
+        
+        if (_isGathering) _rb.Velocity = Vector2.Zero;
     }
 
     private void HandleInputs()
     {
         KeyboardHandler.GetState();
-
+        
         if (KeyboardHandler.IsDown(Keys.W))
         {
             _input.Y = -1f;
@@ -86,6 +95,17 @@ public class FarmerController : Component
         {
             _input.X = 0f;
         }
+        
+        MouseState currentMouseState = Mouse.GetState();
+
+        if (_previousLeftMouseButtonState == ButtonState.Released && currentMouseState.LeftButton == ButtonState.Pressed)
+        {
+            if (!_hitbox.Valid) return;
+            
+            CreateSoil();
+        }
+
+        _previousLeftMouseButtonState = currentMouseState.LeftButton;
     }
     
     private void Move()
@@ -141,8 +161,43 @@ public class FarmerController : Component
         _hitbox.GetComponent<SpriteRenderer>().SpriteIndex = _hitbox.Valid ? 0 : 1;
     }
 
+    private void CreateSoil()
+    {
+        bool soilExists = _soilTiles.Exists(soil => soil.Transform.Position == _hitbox.Transform.Position);
+
+        if (!soilExists)
+        {
+            Soil soil = new Soil
+            {
+                Transform =
+                {
+                    Position = _hitbox.Transform.Position
+                }
+            };
+
+            _soilTiles.Add(soil);
+            SceneManager.CurrentScene.AddGameObject(soil);
+
+            _isGathering = true;
+            
+            HandleGatherAnimations();
+        }
+    }
+
     private void HandleAnimations()
     {
+        if (_isGathering)
+        {
+            if (_anim.IsCurrentAnimationFinsihed())
+            {
+                _isGathering = false;
+            }
+            else
+            {
+                return;
+            }
+        }
+        
         HandleIdleAnimations();
         HandleWalkAnimations();
     }
@@ -192,6 +247,20 @@ public class FarmerController : Component
             default:
                 _anim.PlayAnimation("walk_down");
                 break;
+        }
+    }
+
+    private void HandleGatherAnimations()
+    {
+        Vector2 directionToHitbox = _hitbox.Transform.Position - GameObject.Transform.Position;
+
+        if (Math.Abs(directionToHitbox.X) > Math.Abs(directionToHitbox.Y))
+        {
+            _anim.PlayAnimation(directionToHitbox.X >= 0 ? "gather_right" : "gather_left");
+        }
+        else
+        {
+            _anim.PlayAnimation(directionToHitbox.Y > 0 ? "gather_down" : "gather_up");
         }
     }
 }

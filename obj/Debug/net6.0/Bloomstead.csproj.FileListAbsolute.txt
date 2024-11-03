@@ -28,3 +28,4 @@ D:\Dev\Game Dev\C# - MonoGame\Bloomstead\bin\Debug\net6.0\Content\sprites\tilese
 D:\Dev\Game Dev\C# - MonoGame\Bloomstead\bin\Debug\net6.0\Content\sprites\characters\character_base_spritesheet.xnb
 D:\Dev\Game Dev\C# - MonoGame\Bloomstead\obj\Debug\net6.0\Bloomstead.sourcelink.json
 D:\Dev\Game Dev\C# - MonoGame\Bloomstead\bin\Debug\net6.0\Content\sprites\hitbox_spritesheet.xnb
+D:\Dev\Game Dev\C# - MonoGame\Bloomstead\bin\Debug\net6.0\Content\sprites\objects\soil_spritesheet.xnb
