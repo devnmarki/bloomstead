@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Bloomstead.Bloomstead.Game_Objects;
+using Bloomstead.Bloomstead.Game_Objects.Tools;
 using LumiEngine;
 using LumiEngine.Input;
 using LumiEngine.LevelEditor;
@@ -31,6 +32,7 @@ public class FarmerController : Component
     private ButtonState _previousLeftMouseButtonState = ButtonState.Released;
     private List<Soil> _soilTiles = new List<Soil>();
     private bool _isGathering = false;
+    private Hoe _hoe;
 
     public FarmerController(TilemapManager tilemapManager)
     {
@@ -53,13 +55,21 @@ public class FarmerController : Component
     public override void OnUpdate()
     {
         base.OnUpdate();
-        
+
         HandleInputs();
         Move();
         HandleHitbox();
         HandleAnimations();
-        
-        if (_isGathering) _rb.Velocity = Vector2.Zero;
+
+        if (_isGathering)
+        {
+            _rb.Velocity = Vector2.Zero;
+        }
+        else
+        {
+            if (_hoe != null)
+                SceneManager.CurrentScene.RemoveGameObject(_hoe);
+        }
     }
 
     private void HandleInputs()
@@ -179,6 +189,9 @@ public class FarmerController : Component
             SceneManager.CurrentScene.AddGameObject(soil);
 
             _isGathering = true;
+
+            _hoe = new Hoe() { Transform = { Position = GameObject.Transform.Position } };
+            SceneManager.CurrentScene.AddGameObject(_hoe);
             
             HandleGatherAnimations();
         }
