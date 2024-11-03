@@ -1,11 +1,14 @@
 using Bloomstead.Bloomstead.Components;
 using LumiEngine;
+using LumiEngine.LevelEditor;
 using Microsoft.Xna.Framework;
 
 namespace Bloomstead.Bloomstead.Game_Objects;
 
 public class Farmer : GameObject
 {
+    public TilemapManager TilemapManager { get; set; }
+    
     protected override void Init()
     {
         base.Init();
@@ -25,7 +28,7 @@ public class Farmer : GameObject
         AddComponent(new Animator());
         AddComponent(new BoxCollider(new Vector2(7 * Config.GameScale, 6 * Config.GameScale), new Vector2(1 * Config.GameScale, 7 * Config.GameScale)));
         AddComponent(new Rigidbody() { UseGravity = false });
-        AddComponent(new FarmerController());
+        AddComponent(new FarmerController(TilemapManager));
     }
 
     private void LoadAnimations()

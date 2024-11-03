@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using LumiEngine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -59,6 +60,45 @@ public class TilemapManager
                 }
             }
         }
+    }
+    
+    public void Draw(string layerName, Vector2 startPosition, float layerDepth = 0f)
+    {
+        var layer = map.Layers[layerName];
+        
+        for (int i = 0; i < layer.Tiles.Count; i++)
+        {
+            int gid = layer.Tiles[i].Gid;
+
+            if (gid != 0)
+            {
+                int tileFrame = gid - 1;
+                int column = tileFrame % tilesetTilesWide;
+                int row = (int)Math.Floor((double)tileFrame / (double)tilesetTilesWide);
+
+                float x = startPosition.X + (i % map.Width) * tileWidth * Config.GameScale;
+                float y = startPosition.Y + (float)Math.Floor(i / (double)map.Width) * tileHeight * Config.GameScale;
+
+                Rectangle tilesetRect = new Rectangle(tileWidth * column, tileHeight * row, tileWidth, tileHeight);
+
+                Config.Batch.Draw(tileset, 
+                    new Rectangle((int)x - (int)Config.CameraX, (int)y - (int)Config.CameraY, (int)(tileWidth * Config.GameScale), (int)(tileHeight * Config.GameScale)), 
+                    tilesetRect, 
+                    Color.White,
+                    0f,
+                    Vector2.Zero, 
+                    SpriteEffects.None,
+                    layerDepth
+                );
+            }
+        }
+    }
+
+    public List<TmxLayerTile> GetTiles(string layerName)
+    {
+        var layer = map.Layers[layerName];
+
+        return layer.Tiles.Where(tile => tile.Gid != 0).ToList();
     }
     
     public void CreateColliders(Vector2 startPosition)

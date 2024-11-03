@@ -1,3 +1,4 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
 "D:/Dev/Game Dev/C# - MonoGame/Bloomstead/Content/sprites/characters/character_base_spritesheet.png","D:/Dev/Game Dev/C# - MonoGame/Bloomstead/Content/bin/DesktopGL/Content/sprites/characters/character_base_spritesheet.xnb","TextureProcessor","Texture2DContent",4843,327765,0.3179495
+"D:/Dev/Game Dev/C# - MonoGame/Bloomstead/Content/sprites/hitbox_spritesheet.png","D:/Dev/Game Dev/C# - MonoGame/Bloomstead/Content/bin/DesktopGL/Content/sprites/hitbox_spritesheet.xnb","TextureProcessor","Texture2DContent",152,2133,0.3535037
 "D:/Dev/Game Dev/C# - MonoGame/Bloomstead/Content/sprites/tilesets/overworld_tileset.png","D:/Dev/Game Dev/C# - MonoGame/Bloomstead/Content/bin/DesktopGL/Content/sprites/tilesets/overworld_tileset.xnb","TextureProcessor","Texture2DContent",357,12373,0.2850422

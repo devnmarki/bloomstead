@@ -1,5 +1,10 @@
+using System;
+using System.Runtime.CompilerServices;
+using Bloomstead.Bloomstead.Game_Objects;
 using LumiEngine;
 using LumiEngine.Input;
+using LumiEngine.LevelEditor;
+using Microsoft.VisualBasic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -15,6 +20,15 @@ public class FarmerController : Component
     private Vector2 _input = Vector2.Zero;
     private float _moveSpeed = 300f;
     private Directions _dir = Directions.Down;
+
+    private Hitbox _hitbox;
+    private Vector2 _hitboxPos;
+    private TilemapManager _tilemapManager;
+
+    public FarmerController(TilemapManager tilemapManager)
+    {
+        _tilemapManager = tilemapManager;
+    }
     
     public override void OnStart()
     {
@@ -23,7 +37,10 @@ public class FarmerController : Component
         _rb = GameObject.GetComponent<Rigidbody>();
         _anim = GameObject.GetComponent<Animator>();
         
-        _anim.PlayAnimation("idle_right");
+        _anim.PlayAnimation("idle_down");
+
+        _hitbox = new Hitbox();
+        SceneManager.CurrentScene.AddGameObject(_hitbox);
     }
 
     public override void OnUpdate()
@@ -32,6 +49,7 @@ public class FarmerController : Component
         
         HandleInputs();
         Move();
+        HandleHitbox();
         HandleAnimations();
     }
 
@@ -79,6 +97,48 @@ public class FarmerController : Component
         }
         
         _rb.Velocity = new Vector2(_input.X * _moveSpeed, _input.Y * _moveSpeed);
+    }
+
+    private void HandleHitbox()
+    {
+        float hitboxRange = 31 * Config.GameScale;
+
+        float mousePosX = Mouse.GetState().X;
+        float mousePosY = Mouse.GetState().Y;
+
+        Vector2 worldMousePos = new Vector2(
+            mousePosX + Config.CameraX,
+            mousePosY + Config.CameraY
+        );
+
+        Vector2 farmerPosition = GameObject.Transform.Position;
+        float distance = Vector2.Distance(farmerPosition, worldMousePos);
+
+        Vector2 snappedPosition = new Vector2(
+            (float)Math.Floor(worldMousePos.X / (16 * Config.GameScale)) * (16 * Config.GameScale),
+            (float)Math.Floor(worldMousePos.Y / (16 * Config.GameScale)) * (16 * Config.GameScale)
+        );
+
+        Rectangle validArea = new Rectangle(
+            (int)(farmerPosition.X - hitboxRange),
+            (int)(farmerPosition.Y - hitboxRange), 
+            (int)(hitboxRange * 2),            
+            (int)(hitboxRange * 2)                  
+        );
+
+        _hitboxPos = snappedPosition;
+        _hitbox.Transform.Position = _hitboxPos;
+        
+        if (validArea.Contains(snappedPosition) && distance <= hitboxRange)
+        {
+            _hitbox.Valid = true;
+        }
+        else
+        {
+            _hitbox.Valid = false;
+        }
+
+        _hitbox.GetComponent<SpriteRenderer>().SpriteIndex = _hitbox.Valid ? 0 : 1;
     }
 
     private void HandleAnimations()

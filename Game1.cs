@@ -68,7 +68,7 @@ public class Game1 : Game
     {
         GraphicsDevice.Clear(Color.White);
         
-        Config.Batch.Begin(SpriteSortMode.BackToFront, null, SamplerState.PointClamp);
+        Config.Batch.Begin(SpriteSortMode.BackToFront, null, SamplerState.PointClamp, transformMatrix: Config.Camera.GetTransformation());
         SceneManager.RenderCurrentScene();
         Config.Batch.End();
         
