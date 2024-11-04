@@ -170,13 +170,12 @@ public class FarmerController : Component
 
         _hitbox.GetComponent<SpriteRenderer>().SpriteIndex = _hitbox.Valid ? 0 : 1;
     }
-
+    
     private void CreateSoil()
     {
-        bool soilExists = _soilTiles.Exists(soil => soil.Transform.Position == _hitbox.Transform.Position);
-        //bool objectExists = SceneManager.CurrentScene.GameObjects.Exists(go => go.Transform.Position == _hitbox.Transform.Position);
-
-        if (!soilExists)
+        bool objectExists = SceneManager.CurrentScene.GameObjects.Exists(go => go is not (Hitbox or Farmer) && go.Transform.Position == _hitbox.Transform.Position);
+        
+        if (!objectExists && !_isGathering)
         {
             Soil soil = new Soil
             {

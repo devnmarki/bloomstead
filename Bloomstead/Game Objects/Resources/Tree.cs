@@ -14,6 +14,6 @@ public class Tree : GameObject
 
         Transform.Scale = new Vector2(Config.GameScale);
         
-        AddComponent(new SpriteRenderer(Assets.Textures.Resources.Tree) { SpriteOffset = new Vector2(8 * Config.GameScale, 0)});
+        AddComponent(new SpriteRenderer(Assets.Textures.Resources.Tree) { SpriteOffset = new Vector2(8 * Config.GameScale, 20 * Config.GameScale) });
     }
 }
