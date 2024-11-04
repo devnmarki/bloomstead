@@ -1,4 +1,5 @@
 ﻿using Bloomstead.Bloomstead.Game_Objects;
+using Bloomstead.Bloomstead.Game_Objects.Resources;
 using LumiEngine;
 using LumiEngine.Input;
 using LumiEngine.LevelEditor;
@@ -39,6 +40,7 @@ public class Game1 : Game
         SceneManager.AddScene("overworld", new OverworldScene());
         
         TilemapManager.AddGameObjectToLoad("Farmer", () => new Farmer());
+        TilemapManager.AddGameObjectToLoad("Tree", () => new Tree());
         
         SceneManager.ChangeScene("overworld");
     }

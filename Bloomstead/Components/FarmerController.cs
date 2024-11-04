@@ -174,6 +174,7 @@ public class FarmerController : Component
     private void CreateSoil()
     {
         bool soilExists = _soilTiles.Exists(soil => soil.Transform.Position == _hitbox.Transform.Position);
+        //bool objectExists = SceneManager.CurrentScene.GameObjects.Exists(go => go.Transform.Position == _hitbox.Transform.Position);
 
         if (!soilExists)
         {
@@ -186,7 +187,7 @@ public class FarmerController : Component
             };
 
             _soilTiles.Add(soil);
-            SceneManager.CurrentScene.AddGameObject(soil);
+            SceneManager.CurrentScene.AddGameObject(soil);      
 
             _isGathering = true;
 
@@ -194,6 +195,10 @@ public class FarmerController : Component
             SceneManager.CurrentScene.AddGameObject(_hoe);
             
             HandleGatherAnimations();
+        }
+        else
+        {
+            Console.WriteLine("Object in the way");
         }
     }
 

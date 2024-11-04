@@ -23,6 +23,11 @@ public static class Assets
         public static readonly Texture2D Hitbox = Config.Content.Load<Texture2D>("sprites/hitbox_spritesheet");
         public static readonly Texture2D Soil = Config.Content.Load<Texture2D>("sprites/objects/soil_spritesheet");
         public static readonly Texture2D Hoe = Config.Content.Load<Texture2D>("sprites/tools/how_spritesheet");
+
+        public static class Resources
+        {
+            public static readonly Texture2D Tree = Config.Content.Load<Texture2D>("sprites/objects/tree");
+        }
     }
     
     public static class Spritesheets
