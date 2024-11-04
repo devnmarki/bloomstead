@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Bloomstead.Bloomstead.Game_Objects;
+using Bloomstead.Bloomstead.Game_Objects.Resources;
 using Bloomstead.Bloomstead.Game_Objects.Tools;
 using LumiEngine;
 using LumiEngine.Input;
@@ -28,9 +29,7 @@ public class FarmerController : Component
     private Vector2 _hitboxPos;
     private TilemapManager _tilemapManager;
     
-    // Farming
-    private ButtonState _previousLeftMouseButtonState = ButtonState.Released;
-    private List<Soil> _soilTiles = new List<Soil>();
+    // Gathering
     private bool _isGathering = false;
     private Hoe _hoe;
 
@@ -50,6 +49,8 @@ public class FarmerController : Component
 
         _hitbox = new Hitbox();
         SceneManager.CurrentScene.AddGameObject(_hitbox);
+        
+        _hoe = new Hoe() { Transform = { Position = GameObject.Transform.Position } };
     }
 
     public override void OnUpdate()
@@ -106,16 +107,13 @@ public class FarmerController : Component
             _input.X = 0f;
         }
         
-        MouseState currentMouseState = Mouse.GetState();
-
-        if (_previousLeftMouseButtonState == ButtonState.Released && currentMouseState.LeftButton == ButtonState.Pressed)
+        if (Mouse.GetState().LeftButton == ButtonState.Pressed)
         {
             if (!_hitbox.Valid) return;
             
             CreateSoil();
+            GatherResource();
         }
-
-        _previousLeftMouseButtonState = currentMouseState.LeftButton;
     }
     
     private void Move()
@@ -184,23 +182,31 @@ public class FarmerController : Component
                     Position = _hitbox.Transform.Position
                 }
             };
-
-            _soilTiles.Add(soil);
+            
             SceneManager.CurrentScene.AddGameObject(soil);      
 
             _isGathering = true;
 
-            _hoe = new Hoe() { Transform = { Position = GameObject.Transform.Position } };
             SceneManager.CurrentScene.AddGameObject(_hoe);
             
             HandleGatherAnimations();
         }
-        else
-        {
-            Console.WriteLine("Object in the way");
-        }
     }
 
+    private void GatherResource()
+    {
+        Resource resource = SceneManager.CurrentScene.GameObjects.Find(go => go is Resource && go.Transform.Position == _hitbox.Transform.Position) as Resource;
+        
+        if (resource != null && !_isGathering)
+        {
+            _isGathering = true;
+            
+            resource.TakeDamage(1);
+            
+            HandleGatherAnimations();
+        }
+    }
+    
     private void HandleAnimations()
     {
         if (_isGathering)

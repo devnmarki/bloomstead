@@ -40,7 +40,7 @@ public class Game1 : Game
         SceneManager.AddScene("overworld", new OverworldScene());
         
         TilemapManager.AddGameObjectToLoad("Farmer", () => new Farmer());
-        TilemapManager.AddGameObjectToLoad("Tree", () => new Tree());
+        TilemapManager.AddGameObjectToLoad("Tree", () => new TreeResource());
         
         SceneManager.ChangeScene("overworld");
     }

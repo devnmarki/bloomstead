@@ -77,6 +77,11 @@ public class GameObject
         _components.Remove(component);
     }
 
+    public void DestroyGameObject(GameObject gameObject)
+    {
+        SceneManager.CurrentScene.RemoveGameObject(gameObject);
+    }
+
     public T GetComponent<T>() where T : Component
     {
         foreach (var component in _components)
