@@ -28,6 +28,11 @@ public static class Assets
         {
             public static readonly Texture2D Tree = Config.Content.Load<Texture2D>("sprites/objects/tree");
         }
+
+        public static class Items
+        {
+            public static readonly Texture2D Logs = Config.Content.Load<Texture2D>("sprites/items/logs_spritesheet");
+        }
     }
     
     public static class Spritesheets
@@ -39,6 +44,11 @@ public static class Assets
         public static class Tools
         {
             public static readonly Spritesheet Hoe = new Spritesheet(Textures.Hoe, 4, 2, new Vector2(16));
+        }
+        
+        public static class Items
+        {
+            public static readonly Spritesheet Logs = new Spritesheet(Textures.Items.Logs, 1, 1, new Vector2(16));
         }
     }
 }

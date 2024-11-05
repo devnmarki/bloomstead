@@ -6,12 +6,14 @@
   <SourceFiles>
     <File>D:/Dev/Game Dev/C# - MonoGame/Bloomstead/Content/sprites/characters/character_base_spritesheet.png</File>
     <File>D:/Dev/Game Dev/C# - MonoGame/Bloomstead/Content/sprites/hitbox_spritesheet.png</File>
+    <File>D:/Dev/Game Dev/C# - MonoGame/Bloomstead/Content/sprites/items/logs_spritesheet.png</File>
     <File>D:/Dev/Game Dev/C# - MonoGame/Bloomstead/Content/sprites/objects/soil_spritesheet.png</File>
     <File>D:/Dev/Game Dev/C# - MonoGame/Bloomstead/Content/sprites/objects/tree.png</File>
     <File>D:/Dev/Game Dev/C# - MonoGame/Bloomstead/Content/sprites/tilesets/overworld_tileset.png</File>
     <File>D:/Dev/Game Dev/C# - MonoGame/Bloomstead/Content/sprites/tools/how_spritesheet.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

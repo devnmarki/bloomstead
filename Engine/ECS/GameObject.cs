@@ -77,6 +77,12 @@ public class GameObject
         _components.Remove(component);
     }
 
+    public void Instantiate(GameObject gameObject, Vector2 position)
+    {
+        gameObject.Transform.Position = position;
+        SceneManager.CurrentScene.AddGameObject(gameObject);
+    }
+    
     public void DestroyGameObject(GameObject gameObject)
     {
         SceneManager.CurrentScene.RemoveGameObject(gameObject);

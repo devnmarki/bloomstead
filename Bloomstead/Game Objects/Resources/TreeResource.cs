@@ -1,4 +1,5 @@
 using System;
+using Bloomstead.Bloomstead.Game_Objects.Items;
 using LumiEngine;
 using Microsoft.Xna.Framework;
 
@@ -29,6 +30,8 @@ public class TreeResource : Resource
     protected override void OnDestroy()
     {
         base.OnDestroy();
+        
+        Instantiate(new Item(ItemModel.Models.ModelLog), Transform.Position + new Vector2(4f * (Config.GameScale - 1f), 4f * (Config.GameScale - 1f)));
         
         DestroyGameObject(this);
     }

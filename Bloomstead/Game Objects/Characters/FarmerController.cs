@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Bloomstead.Bloomstead.Game_Objects;
+using Bloomstead.Bloomstead.Game_Objects.Items;
 using Bloomstead.Bloomstead.Game_Objects.Resources;
 using Bloomstead.Bloomstead.Game_Objects.Tools;
 using LumiEngine;
@@ -51,6 +52,8 @@ public class FarmerController : Component
         SceneManager.CurrentScene.AddGameObject(_hitbox);
         
         _hoe = new Hoe() { Transform = { Position = GameObject.Transform.Position } };
+        
+        _rb.CollisionIgnoreList.Add(typeof(Item));
     }
 
     public override void OnUpdate()
