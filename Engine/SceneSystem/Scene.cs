@@ -49,6 +49,8 @@ public class Scene
 
     public virtual void Render()
     {
+        GameObjects.Sort((a, b) => b.Transform.Position.Y.CompareTo(a.Transform.Position.Y));
+        
         var gameObjectCopy = new List<GameObject>(_gameObjects);
         foreach (GameObject gameObject in gameObjectCopy)
         {

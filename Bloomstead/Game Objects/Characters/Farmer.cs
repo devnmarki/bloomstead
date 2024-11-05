@@ -24,7 +24,7 @@ public class Farmer : GameObject
 
     private void AddComponents()
     {
-        AddComponent(new SpriteRenderer(Assets.Spritesheets.Character, 8) { SpriteOffset = new Vector2(11 * Config.GameScale, 9 * Config.GameScale)});
+        AddComponent(new SpriteRenderer(Assets.Spritesheets.Character, 8) { LayerDepth = Globals.Layers.Characters, SpriteOffset = new Vector2(11 * Config.GameScale, 9 * Config.GameScale)});
         AddComponent(new Animator());
         AddComponent(new BoxCollider(new Vector2(7 * Config.GameScale, 6 * Config.GameScale), new Vector2(1 * Config.GameScale, 7 * Config.GameScale)));
         AddComponent(new Rigidbody() { UseGravity = false });

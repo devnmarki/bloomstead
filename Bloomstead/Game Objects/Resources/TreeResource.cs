@@ -14,14 +14,22 @@ public class TreeResource : Resource
 
         Health = 5;
         
-        AddComponent(new SpriteRenderer(Assets.Textures.Resources.Tree) { SpriteOffset = new Vector2(8 * Config.GameScale, 20 * Config.GameScale) });
+        AddComponent(new SpriteRenderer(Assets.Textures.Resources.Tree) { LayerDepth = 100, SpriteOffset = new Vector2(8 * Config.GameScale, 20 * Config.GameScale) });
+        AddComponent(new BoxCollider(new Vector2(8 * Config.GameScale, 6 * Config.GameScale), new Vector2(4 * Config.GameScale, 4 * Config.GameScale)));
+        AddComponent(new TreeShakeEffect());
+    }
+
+    public override void OnDamage(int amount)
+    {
+        base.OnDamage(amount);
+        
+        GetComponent<TreeShakeEffect>().StartShake();
     }
 
     protected override void OnDestroy()
     {
         base.OnDestroy();
         
-        Console.WriteLine("Tree destroyed");
         DestroyGameObject(this);
     }
 }

@@ -201,7 +201,7 @@ public class FarmerController : Component
         {
             _isGathering = true;
             
-            resource.TakeDamage(1);
+            resource.OnDamage(1);
             
             HandleGatherAnimations();
         }

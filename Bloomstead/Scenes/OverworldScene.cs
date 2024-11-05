@@ -15,7 +15,7 @@ public class OverworldScene : Scene
     {
         base.Start();
         
-        _tilemapManager = new TilemapManager(Assets.Maps.Overworld, Assets.Tilesets.Overworld);
+        _tilemapManager = new TilemapManager(Assets.Maps.Overworld, Assets.Textures.Tilesets.Overworld);
         _tilemapManager.LoadGameObjects();
         _tilemapManager.CreateColliders(Vector2.Zero);
         
@@ -48,6 +48,6 @@ public class OverworldScene : Scene
     {
         base.Render();
         
-        _tilemapManager.Draw("Tiles", Vector2.Zero);
+        _tilemapManager.Draw("Tiles", Vector2.Zero, 1f);
     }
 }

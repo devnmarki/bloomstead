@@ -16,7 +16,7 @@ public class Resource : GameObject
         Transform.Scale = new Vector2(Config.GameScale);
     }
 
-    public virtual void TakeDamage(int amount)
+    public virtual void OnDamage(int amount)
     {
         Health -= amount;
         if (Health <= 0)

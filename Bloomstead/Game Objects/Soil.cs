@@ -9,7 +9,7 @@ public class Soil : GameObject
     {
         base.Init();
 
-        Tag = "soil";
+        Tag = "tiles";
         Name = "Soil";
         
         Transform.Scale = new Vector2(Config.GameScale);

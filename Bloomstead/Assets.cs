@@ -7,11 +7,6 @@ namespace Bloomstead.Bloomstead;
 
 public static class Assets
 {
-    public static class Tilesets
-    {
-        public static Texture2D Overworld { get; set; } = Config.Content.Load<Texture2D>("sprites/tilesets/overworld_tileset");
-    }
-
     public static class Maps
     {
         public static TmxMap Overworld { get; set; } = new TmxMap("../../../Content/levels/default_map.tmx");
@@ -24,6 +19,11 @@ public static class Assets
         public static readonly Texture2D Soil = Config.Content.Load<Texture2D>("sprites/objects/soil_spritesheet");
         public static readonly Texture2D Hoe = Config.Content.Load<Texture2D>("sprites/tools/how_spritesheet");
 
+        public static class Tilesets
+        {
+            public static Texture2D Overworld { get; set; } = Config.Content.Load<Texture2D>("sprites/tilesets/overworld_tileset");
+        }
+        
         public static class Resources
         {
             public static readonly Texture2D Tree = Config.Content.Load<Texture2D>("sprites/objects/tree");
