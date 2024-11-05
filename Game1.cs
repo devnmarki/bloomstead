@@ -1,4 +1,5 @@
 ﻿using Bloomstead.Bloomstead.Game_Objects;
+using Bloomstead.Bloomstead.Game_Objects.Resources;
 using LumiEngine;
 using LumiEngine.Input;
 using LumiEngine.LevelEditor;
@@ -39,6 +40,7 @@ public class Game1 : Game
         SceneManager.AddScene("overworld", new OverworldScene());
         
         TilemapManager.AddGameObjectToLoad("Farmer", () => new Farmer());
+        TilemapManager.AddGameObjectToLoad("Tree", () => new TreeResource());
         
         SceneManager.ChangeScene("overworld");
     }
@@ -68,7 +70,7 @@ public class Game1 : Game
     {
         GraphicsDevice.Clear(Color.White);
         
-        Config.Batch.Begin(SpriteSortMode.BackToFront, null, SamplerState.PointClamp, transformMatrix: Config.Camera.GetTransformation());
+        Config.Batch.Begin(sortMode: SpriteSortMode.BackToFront, samplerState: SamplerState.PointClamp, transformMatrix: Config.Camera.GetTransformation());
         SceneManager.RenderCurrentScene();
         Config.Batch.End();
         

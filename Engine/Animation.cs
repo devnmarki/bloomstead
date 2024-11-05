@@ -20,6 +20,8 @@ public class Animation
         set => _currentFrame = value;
     }
     
+    public bool HasFinished => !Loop && _currentFrame == Frames.Length;
+    
     public Animation(Spritesheet spritesheet, int[] frames, float frameDuration, bool loop = true)
     {
         Spritesheet = spritesheet;
@@ -36,7 +38,7 @@ public class Animation
             _currentFrame++;
             if (_currentFrame >= Frames.Length)
             {
-                _currentFrame = Loop ? 0 : Frames.Length - 1;
+                _currentFrame = Loop ? 0 : Frames.Length;
             }
             
             _currentTime = 0f;
@@ -46,5 +48,6 @@ public class Animation
     public void Reset()
     {
         _currentFrame = 0;
+        _currentTime = 0f;
     }
 }

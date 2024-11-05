@@ -1,5 +1,7 @@
 using System;
 using System.Numerics;
+using Bloomstead;
+using Bloomstead.Bloomstead.Game_Objects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
@@ -58,7 +60,7 @@ public class SpriteRenderer : Component
     public override void OnDraw()
     {
         base.OnDraw();
-
+        
         if (GameObject.HasComponent<Animator>()) return;
         
         if (_sprite != null)

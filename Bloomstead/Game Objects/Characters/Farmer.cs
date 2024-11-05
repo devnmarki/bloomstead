@@ -44,5 +44,10 @@ public class Farmer : GameObject
         anim.AddAnimation("walk_left", new Animation(Assets.Spritesheets.Character, new int[] { 20, 21, 22, 23 }, 0.15f));
         anim.AddAnimation("walk_down", new Animation(Assets.Spritesheets.Character, new int[] { 24, 25, 26, 27 }, 0.15f));  
         anim.AddAnimation("walk_up", new Animation(Assets.Spritesheets.Character, new int[] { 28, 29, 30, 31 }, 0.15f));
+        
+        anim.AddAnimation("gather_right", new Animation(Assets.Spritesheets.Character, new int[] { 64, 65 }, 0.3f, false));
+        anim.AddAnimation("gather_left", new Animation(Assets.Spritesheets.Character, new int[] { 68, 69 }, 0.3f, false));
+        anim.AddAnimation("gather_down", new Animation(Assets.Spritesheets.Character, new int[] { 72, 73 }, 0.3f, false));
+        anim.AddAnimation("gather_up", new Animation(Assets.Spritesheets.Character, new int[] { 76, 77 }, 0.3f, false));
     }
 }

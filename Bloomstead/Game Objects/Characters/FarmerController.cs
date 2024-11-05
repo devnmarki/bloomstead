@@ -1,6 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Bloomstead.Bloomstead.Game_Objects;
+using Bloomstead.Bloomstead.Game_Objects.Items;
+using Bloomstead.Bloomstead.Game_Objects.Resources;
+using Bloomstead.Bloomstead.Game_Objects.Tools;
 using LumiEngine;
 using LumiEngine.Input;
 using LumiEngine.LevelEditor;
@@ -21,9 +25,14 @@ public class FarmerController : Component
     private float _moveSpeed = 300f;
     private Directions _dir = Directions.Down;
 
+    // Hitbox
     private Hitbox _hitbox;
     private Vector2 _hitboxPos;
     private TilemapManager _tilemapManager;
+    
+    // Gathering
+    private bool _isGathering = false;
+    private Hoe _hoe;
 
     public FarmerController(TilemapManager tilemapManager)
     {
@@ -41,22 +50,36 @@ public class FarmerController : Component
 
         _hitbox = new Hitbox();
         SceneManager.CurrentScene.AddGameObject(_hitbox);
+        
+        _hoe = new Hoe() { Transform = { Position = GameObject.Transform.Position } };
+        
+        _rb.CollisionIgnoreList.Add(typeof(Item));
     }
 
     public override void OnUpdate()
     {
         base.OnUpdate();
-        
+
         HandleInputs();
         Move();
         HandleHitbox();
         HandleAnimations();
+
+        if (_isGathering)
+        {
+            _rb.Velocity = Vector2.Zero;
+        }
+        else
+        {
+            if (_hoe != null)
+                SceneManager.CurrentScene.RemoveGameObject(_hoe);
+        }
     }
 
     private void HandleInputs()
     {
         KeyboardHandler.GetState();
-
+        
         if (KeyboardHandler.IsDown(Keys.W))
         {
             _input.Y = -1f;
@@ -85,6 +108,14 @@ public class FarmerController : Component
         else
         {
             _input.X = 0f;
+        }
+        
+        if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+        {
+            if (!_hitbox.Valid) return;
+            
+            CreateSoil();
+            GatherResource();
         }
     }
     
@@ -140,9 +171,59 @@ public class FarmerController : Component
 
         _hitbox.GetComponent<SpriteRenderer>().SpriteIndex = _hitbox.Valid ? 0 : 1;
     }
+    
+    private void CreateSoil()
+    {
+        bool objectExists = SceneManager.CurrentScene.GameObjects.Exists(go => go is not (Hitbox or Farmer) && go.Transform.Position == _hitbox.Transform.Position);
+        
+        if (!objectExists && !_isGathering)
+        {
+            Soil soil = new Soil
+            {
+                Transform =
+                {
+                    Position = _hitbox.Transform.Position
+                }
+            };
+            
+            SceneManager.CurrentScene.AddGameObject(soil);      
 
+            _isGathering = true;
+
+            SceneManager.CurrentScene.AddGameObject(_hoe);
+            
+            HandleGatherAnimations();
+        }
+    }
+
+    private void GatherResource()
+    {
+        Resource resource = SceneManager.CurrentScene.GameObjects.Find(go => go is Resource && go.Transform.Position == _hitbox.Transform.Position) as Resource;
+        
+        if (resource != null && !_isGathering)
+        {
+            _isGathering = true;
+            
+            resource.OnDamage(1);
+            
+            HandleGatherAnimations();
+        }
+    }
+    
     private void HandleAnimations()
     {
+        if (_isGathering)
+        {
+            if (_anim.IsCurrentAnimationFinsihed())
+            {
+                _isGathering = false;
+            }
+            else
+            {
+                return;
+            }
+        }
+        
         HandleIdleAnimations();
         HandleWalkAnimations();
     }
@@ -192,6 +273,20 @@ public class FarmerController : Component
             default:
                 _anim.PlayAnimation("walk_down");
                 break;
+        }
+    }
+
+    private void HandleGatherAnimations()
+    {
+        Vector2 directionToHitbox = _hitbox.Transform.Position - GameObject.Transform.Position;
+
+        if (Math.Abs(directionToHitbox.X) > Math.Abs(directionToHitbox.Y))
+        {
+            _anim.PlayAnimation(directionToHitbox.X >= 0 ? "gather_right" : "gather_left");
+        }
+        else
+        {
+            _anim.PlayAnimation(directionToHitbox.Y > 0 ? "gather_down" : "gather_up");
         }
     }
 }

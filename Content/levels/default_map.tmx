@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="2">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="8">
  <tileset firstgid="1" source="overworld_tileset.tsx"/>
  <layer id="1" name="Tiles" width="30" height="20">
   <data encoding="csv">
@@ -50,8 +50,20 @@
 </data>
  </layer>
  <objectgroup id="3" name="Game Objects">
-  <object id="1" name="Farmer" x="32" y="32">
+  <object id="1" name="Farmer" x="240" y="144">
    <point/>
   </object>
+  <object id="2" name="Tree" x="176" y="128">
+   <point/>
+  </object>
+  <object id="3" name="Tree" x="144" y="128">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="4" name="Collision">
+  <object id="4" x="-16" y="320" width="512" height="16"/>
+  <object id="5" x="-16" y="-16" width="512" height="16"/>
+  <object id="6" x="480" y="0" width="16" height="320"/>
+  <object id="7" x="-16" y="0" width="16" height="320"/>
  </objectgroup>
 </map>
