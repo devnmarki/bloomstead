@@ -24,7 +24,7 @@ public class Farmer : GameObject
 
     private void AddComponents()
     {
-        AddComponent(new SpriteRenderer(Assets.Spritesheets.Character, 8) { LayerDepth = Globals.Layers.Characters, SpriteOffset = new Vector2(11 * Config.GameScale, 9 * Config.GameScale)});
+        AddComponent(new SpriteRenderer(Assets.Spritesheets.Character, 8) { SpriteOffset = new Vector2(11 * Config.GameScale, 9 * Config.GameScale)});
         AddComponent(new Animator());
         AddComponent(new BoxCollider(new Vector2(7 * Config.GameScale, 6 * Config.GameScale), new Vector2(1 * Config.GameScale, 7 * Config.GameScale)));
         AddComponent(new Rigidbody() { UseGravity = false });
@@ -45,9 +45,9 @@ public class Farmer : GameObject
         anim.AddAnimation("walk_down", new Animation(Assets.Spritesheets.Character, new int[] { 24, 25, 26, 27 }, 0.15f));  
         anim.AddAnimation("walk_up", new Animation(Assets.Spritesheets.Character, new int[] { 28, 29, 30, 31 }, 0.15f));
         
-        anim.AddAnimation("gather_right", new Animation(Assets.Spritesheets.Character, new int[] { 64, 65 }, 0.4f, false));
-        anim.AddAnimation("gather_left", new Animation(Assets.Spritesheets.Character, new int[] { 68, 69 }, 0.4f, false));
-        anim.AddAnimation("gather_down", new Animation(Assets.Spritesheets.Character, new int[] { 72, 73 }, 0.4f, false));
-        anim.AddAnimation("gather_up", new Animation(Assets.Spritesheets.Character, new int[] { 76, 77 }, 0.4f, false));
+        anim.AddAnimation("gather_right", new Animation(Assets.Spritesheets.Character, new int[] { 64, 65 }, 0.3f, false));
+        anim.AddAnimation("gather_left", new Animation(Assets.Spritesheets.Character, new int[] { 68, 69 }, 0.3f, false));
+        anim.AddAnimation("gather_down", new Animation(Assets.Spritesheets.Character, new int[] { 72, 73 }, 0.3f, false));
+        anim.AddAnimation("gather_up", new Animation(Assets.Spritesheets.Character, new int[] { 76, 77 }, 0.3f, false));
     }
 }

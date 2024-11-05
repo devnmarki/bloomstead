@@ -48,6 +48,6 @@ public class OverworldScene : Scene
     {
         base.Render();
         
-        _tilemapManager.Draw("Tiles", Vector2.Zero, 0.75f);
+        _tilemapManager.Draw("Tiles", Vector2.Zero);
     }
 }

@@ -25,6 +25,8 @@ public class HoeController : Component
         Animator anim = _farmer.GetComponent<Animator>();
         
         SpriteRenderer hoeRenderer = GameObject.GetComponent<SpriteRenderer>();
+        hoeRenderer.SpriteIndex = 8;
+        
         Vector2 hoeOffset = Vector2.Zero;
         
         if (anim.CurrentAnimation == anim.GetAnimation("gather_right"))

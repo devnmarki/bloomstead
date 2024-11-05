@@ -1,5 +1,6 @@
 using System;
 using System.Numerics;
+using Bloomstead;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
@@ -59,6 +60,8 @@ public class SpriteRenderer : Component
     {
         base.OnDraw();
 
+        _layerDepth = GameObject.Transform.Position.Y / Config.WindowHeight;
+        
         if (GameObject.HasComponent<Animator>()) return;
         
         if (_sprite != null)

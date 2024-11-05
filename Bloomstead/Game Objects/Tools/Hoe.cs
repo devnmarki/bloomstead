@@ -16,7 +16,7 @@ public class Hoe : GameObject
         
         Transform.Scale = new Vector2(Config.GameScale);
         
-        AddComponent(new SpriteRenderer(Assets.Spritesheets.Tools.Hoe, 0));
+        AddComponent(new SpriteRenderer(Assets.Spritesheets.Tools.Hoe, 8));
         AddComponent(new HoeController(SceneManager.CurrentScene.FindGameObjectByTag("farmer") as Farmer));
     }
 }
