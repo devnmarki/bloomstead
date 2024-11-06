@@ -24,6 +24,6 @@ public class Item : GameObject
         Transform.Scale = new Vector2(Config.GameScale - 1f);
         
         AddComponent(new SpriteRenderer(_model.Spritesheet, _model.Sprite) { LayerDepth = Globals.Layers.SoilTiles });
-        AddComponent(new BoxCollider(new Vector2(16f * (Config.GameScale - 1f))));
+        AddComponent(new BoxCollider(new Vector2(8f * (Config.GameScale - 1f)), new Vector2(4f * Config.GameScale)));
     }
 }

@@ -7,6 +7,8 @@ namespace Bloomstead.Bloomstead.Game_Objects.Resources;
 
 public class TreeResource : Resource
 {
+    private int _maxDropCount = 5;
+    
     protected override void Init()
     {
         base.Init();
@@ -31,7 +33,18 @@ public class TreeResource : Resource
     {
         base.OnDestroy();
         
-        Instantiate(new Item(ItemModel.Models.ModelLog), Transform.Position + new Vector2(4f * (Config.GameScale - 1f), 4f * (Config.GameScale - 1f)));
+        Random rnd = new Random();
+        
+        int dropCount = rnd.Next(1, _maxDropCount);
+
+        for (int i = 0; i < dropCount; i++)
+        {
+            double dropX = rnd.NextDouble() * 15f;
+            double dropY = rnd.NextDouble() * 15f;
+            Instantiate(new Item(ItemModel.Models.ModelLog), Transform.Position + new Vector2((float)dropX * (Config.GameScale - 1f), (float)dropY * (Config.GameScale - 1f)));
+        }
+        
+        Console.WriteLine(dropCount);
         
         DestroyGameObject(this);
     }

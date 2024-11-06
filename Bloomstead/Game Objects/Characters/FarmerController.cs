@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using Bloomstead.Bloomstead.Game_Objects;
 using Bloomstead.Bloomstead.Game_Objects.Items;
 using Bloomstead.Bloomstead.Game_Objects.Resources;
@@ -8,7 +7,6 @@ using Bloomstead.Bloomstead.Game_Objects.Tools;
 using LumiEngine;
 using LumiEngine.Input;
 using LumiEngine.LevelEditor;
-using Microsoft.VisualBasic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -33,6 +31,7 @@ public class FarmerController : Component
     // Gathering
     private bool _isGathering = false;
     private Hoe _hoe;
+    private float _pickupRange = 75f;
 
     public FarmerController(TilemapManager tilemapManager)
     {
@@ -54,6 +53,8 @@ public class FarmerController : Component
         _hoe = new Hoe() { Transform = { Position = GameObject.Transform.Position } };
         
         _rb.CollisionIgnoreList.Add(typeof(Item));
+
+        _rb.OnCollision = OnCollision;
     }
 
     public override void OnUpdate()
@@ -63,6 +64,7 @@ public class FarmerController : Component
         HandleInputs();
         Move();
         HandleHitbox();
+        MoveItemToFarmer();
         HandleAnimations();
 
         if (_isGathering)
@@ -208,6 +210,32 @@ public class FarmerController : Component
             
             HandleGatherAnimations();
         }
+    }
+
+    private void OnCollision(GameObject other)
+    {
+        if (other is Item item)
+            Pickup(item);
+    }
+
+    private void MoveItemToFarmer()
+    {
+        List<GameObject> items = SceneManager.CurrentScene.GameObjects.FindAll(go => go is Item);
+
+        foreach (var item in items)
+        {
+            float itemDistance = Vector2.Distance(item.Transform.Position, GameObject.Transform.Position);
+
+            if (itemDistance <= _pickupRange)
+            {
+                item.Transform.Position = GameObject.MoveTowards(item.Transform.Position, GameObject.Transform.Position, 300f * (float)Config.Time.ElapsedGameTime.TotalSeconds);
+            }
+        }
+    }
+
+    private void Pickup(Item item)
+    {
+        GameObject.DestroyGameObject(item);
     }
     
     private void HandleAnimations()
