@@ -1,6 +1,7 @@
 using System;
 using System.Numerics;
 using Bloomstead;
+using Bloomstead.Bloomstead;
 using Bloomstead.Bloomstead.Game_Objects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -17,6 +18,8 @@ public class SpriteRenderer : Component
     
     private Spritesheet _spritesheet = null;
     private int _spriteIndex = 0;
+
+    private Color _currentColor = Color.White;
     
     public bool Flip
     {
@@ -61,6 +64,13 @@ public class SpriteRenderer : Component
     {
         base.OnDraw();
         
+        GameManager manager = SceneManager.CurrentScene.FindGameObjectByTag("manager") as GameManager;
+        
+        DayNightCycle dayNightCycle = manager?.GetComponent<DayNightCycle>();
+        Color tintColor = dayNightCycle?.CurrentColor ?? Color.White;
+        
+        _currentColor = tintColor;
+        
         if (GameObject.HasComponent<Animator>()) return;
         
         if (_sprite != null)
@@ -80,7 +90,7 @@ public class SpriteRenderer : Component
             _sprite,
             position,
             null,
-            Color.White,
+            _currentColor,
             0f,
             Vector2.Zero,
             GameObject.Transform.Scale,
@@ -95,7 +105,7 @@ public class SpriteRenderer : Component
             _spritesheet.Texture,
             position,
             _spritesheet.Sprites[_spriteIndex],
-            Color.White,
+            _currentColor,
             0f,
             Vector2.Zero,
             GameObject.Transform.Scale,
@@ -110,7 +120,7 @@ public class SpriteRenderer : Component
             spritesheet.Texture,
             position,
             sprite,
-            Color.White,
+            _currentColor,
             0f,
             Vector2.Zero,
             GameObject.Transform.Scale,
