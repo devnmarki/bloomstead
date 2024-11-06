@@ -7,14 +7,13 @@ public static class ItemModel
     public enum ItemType
     {
         Material,
-        Food,
+        Consumable,
         Tool,
-        Weapon
     }
 
     public static class Models
     {
-        public static readonly Item ModelLog = new Item("Oak Log", ItemType.Material, Assets.Spritesheets.Items.Logs, 0, true);
+        public static readonly Item ModelLog = new Item("Oak Log", ItemType.Material, Assets.Spritesheets.Items.Logs);
     }
 
     public class Item

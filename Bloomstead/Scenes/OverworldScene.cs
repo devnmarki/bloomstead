@@ -21,6 +21,8 @@ public class OverworldScene : Scene
         
         if (FindGameObjectByTag("farmer") is Farmer farmer)
             farmer.TilemapManager = _tilemapManager;
+        
+        AddGameObject(new GameManager());
     }
 
     public override void Update()
@@ -42,12 +44,19 @@ public class OverworldScene : Scene
             Config.CameraY = 0;
         else if (Config.CameraY >= Assets.Maps.Overworld.Height * Config.GameScale + (Config.WindowHeight / 4f))
             Config.CameraY = (Assets.Maps.Overworld.Height * Config.GameScale) + (Config.WindowHeight / 4f);
+        
+        Console.WriteLine(Globals.CurrentDay);
     }
 
     public override void Render()
     {
         base.Render();
         
-        _tilemapManager.Draw("Tiles", Vector2.Zero, 1f);
+        GameManager manager = SceneManager.CurrentScene.FindGameObjectByTag("manager") as GameManager;
+        
+        DayNightCycle dayNightCycle = manager?.GetComponent<DayNightCycle>();
+        Color tintColor = dayNightCycle?.CurrentColor ?? Color.White;
+        
+        _tilemapManager.Draw("Tiles", Vector2.Zero, tintColor, 1f);
     }
 }

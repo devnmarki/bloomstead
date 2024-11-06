@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Bloomstead")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+45d37168299dc8bd458f51e0364c9285d3274802")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+83c66f760ca69ecd729be2dd13c47c481520995d")]
 [assembly: System.Reflection.AssemblyProductAttribute("Bloomstead")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Bloomstead")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

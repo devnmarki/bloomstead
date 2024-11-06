@@ -29,7 +29,7 @@ public class TilemapManager
         tilesetTilesWide = tileset.Width / tileWidth;
     }
 
-    public void Draw(Vector2 startPosition, float layerDepth = 0f)
+    public void Draw(Vector2 startPosition, Color color, float layerDepth = 0f)
     {
         foreach (var layer in map.Layers)
         {
@@ -51,7 +51,7 @@ public class TilemapManager
                     Config.Batch.Draw(tileset, 
                         new Rectangle((int)x - (int)Config.CameraX, (int)y - (int)Config.CameraY, (int)(tileWidth * Config.GameScale), (int)(tileHeight * Config.GameScale)), 
                         tilesetRect, 
-                        Color.White,
+                        color,
                         0f,
                         Vector2.Zero, 
                         SpriteEffects.None,
@@ -62,7 +62,7 @@ public class TilemapManager
         }
     }
     
-    public void Draw(string layerName, Vector2 startPosition, float layerDepth = 0f)
+    public void Draw(string layerName, Vector2 startPosition, Color color, float layerDepth = 0f)
     {
         var layer = map.Layers[layerName];
         
@@ -84,7 +84,7 @@ public class TilemapManager
                 Config.Batch.Draw(tileset, 
                     new Rectangle((int)x - (int)Config.CameraX, (int)y - (int)Config.CameraY, (int)(tileWidth * Config.GameScale), (int)(tileHeight * Config.GameScale)), 
                     tilesetRect, 
-                    Color.White,
+                    color,
                     0f,
                     Vector2.Zero, 
                     SpriteEffects.None,
