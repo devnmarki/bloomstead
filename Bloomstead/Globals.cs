@@ -7,7 +7,7 @@ public static class Globals
     public static class Layers
     {
         public const int Characters = 100;
-        public const int Items = 200;
+        public const int Crops = 600;
         public const int SoilTiles = 750;
     }
 }

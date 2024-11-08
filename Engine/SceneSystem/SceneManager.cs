@@ -63,4 +63,9 @@ public class SceneManager
     {
         _currentScene?.Render();
     }
+
+    public static void RenderCurrentSceneUI()
+    {
+        _currentScene?.RenderUI();
+    }
 }

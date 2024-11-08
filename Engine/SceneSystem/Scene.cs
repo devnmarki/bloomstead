@@ -8,25 +8,36 @@ namespace LumiEngine;
 public class Scene
 {
     private List<GameObject> _gameObjects = new List<GameObject>();
+    private List<GameObject> _uiElements = new List<GameObject>();
 
     public List<GameObject> GameObjects
     {
         get => _gameObjects;
     }
-    
-    public Scene()
-    {
-        
-    }
 
+    public List<GameObject> UIElements
+    {
+        get => _uiElements;
+    }
+    
     public void AddGameObject(GameObject gameObject)
     {
         _gameObjects.Add(gameObject);
+    }
+    
+    public void AddUIElement(GameObject element)
+    {
+        _uiElements.Add(element);
     }
 
     public void RemoveGameObject(GameObject gameObject)
     {
         _gameObjects.Remove(gameObject);
+    }
+    
+    public void RemoveUIElement(GameObject element)
+    {
+        _uiElements.Remove(element);
     }
     
     public virtual void Start()
@@ -49,12 +60,25 @@ public class Scene
 
     public virtual void Render()
     {
-        GameObjects.Sort((a, b) => b.Transform.Position.Y.CompareTo(a.Transform.Position.Y));
+        GameObjects.Sort((a, b) => a.Transform.Position.Y.CompareTo(b.Transform.Position.Y));
         
         var gameObjectCopy = new List<GameObject>(_gameObjects);
         foreach (GameObject gameObject in gameObjectCopy)
         {
             var componentsCopy = new List<Component>(gameObject.Components);
+            foreach (Component component in componentsCopy)
+            {
+                component.OnDraw();
+            }
+        }
+    }
+
+    public void RenderUI()
+    {
+        var uiElements = new List<GameObject>(_uiElements);
+        foreach (GameObject uiElement in uiElements)
+        {
+            var componentsCopy = new List<Component>(uiElement.Components);
             foreach (Component component in componentsCopy)
             {
                 component.OnDraw();

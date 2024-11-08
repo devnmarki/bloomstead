@@ -7,6 +7,7 @@ namespace LumiEngine;
 public static class Config
 {
     public static SpriteBatch Batch { get; set; }
+    public static SpriteBatch UIBatch { get; set; }
     public static ContentManager Content { get; set; }
     public static GraphicsDevice Graphics { get; set; }
 

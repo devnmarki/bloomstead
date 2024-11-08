@@ -23,6 +23,11 @@ public static class Assets
         {
             public static Texture2D Overworld { get; set; } = Config.Content.Load<Texture2D>("sprites/tilesets/overworld_tileset");
         }
+
+        public static class Crops
+        {
+            public static readonly Texture2D Garlic = Config.Content.Load<Texture2D>("sprites/objects/crops/garlic_spritesheet");
+        }
         
         public static class Resources
         {
@@ -32,6 +37,12 @@ public static class Assets
         public static class Items
         {
             public static readonly Texture2D Logs = Config.Content.Load<Texture2D>("sprites/items/logs_spritesheet");
+            public static readonly Texture2D Fibers = Config.Content.Load<Texture2D>("sprites/items/fibers_spritesheet");
+        }
+
+        public static class UI
+        {
+            public static readonly Texture2D InventorySlot = Config.Content.Load<Texture2D>("sprites/ui/inventory_slot");
         }
     }
     
@@ -41,6 +52,11 @@ public static class Assets
         public static readonly Spritesheet Hitbox = new Spritesheet(Textures.Hitbox, 1, 2, new Vector2(16));
         public static readonly Spritesheet Soil = new Spritesheet(Textures.Soil, 1, 2, new Vector2(16));
 
+        public static class Crops
+        {
+            public static readonly Spritesheet Garlic = new Spritesheet(Textures.Crops.Garlic, 2, 3, new Vector2(32));
+        }
+        
         public static class Tools
         {
             public static readonly Spritesheet Hoe = new Spritesheet(Textures.Hoe, 4, 2, new Vector2(16));
@@ -49,6 +65,7 @@ public static class Assets
         public static class Items
         {
             public static readonly Spritesheet Logs = new Spritesheet(Textures.Items.Logs, 1, 1, new Vector2(16));
+            public static readonly Spritesheet Fibers = new Spritesheet(Textures.Items.Fibers, 1, 1, new Vector2(16));
         }
     }
 }

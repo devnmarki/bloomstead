@@ -1,8 +1,10 @@
 using System;
 using Bloomstead.Bloomstead;
 using Bloomstead.Bloomstead.Game_Objects;
+using Bloomstead.Bloomstead.Game_Objects.Objects;
 using LumiEngine;
 using LumiEngine.LevelEditor;
+using LumiEngine.UI;
 using Microsoft.Xna.Framework;
 
 namespace Bloomstead;
@@ -23,6 +25,9 @@ public class OverworldScene : Scene
             farmer.TilemapManager = _tilemapManager;
         
         AddGameObject(new GameManager());
+        
+        AddGameObject(new Crop(CropModel.Models.ModelGarlic) { Transform = { Position = new Vector2(500, 500) } });
+        
     }
 
     public override void Update()
@@ -44,8 +49,6 @@ public class OverworldScene : Scene
             Config.CameraY = 0;
         else if (Config.CameraY >= Assets.Maps.Overworld.Height * Config.GameScale + (Config.WindowHeight / 4f))
             Config.CameraY = (Assets.Maps.Overworld.Height * Config.GameScale) + (Config.WindowHeight / 4f);
-        
-        Console.WriteLine(Globals.CurrentDay);
     }
 
     public override void Render()

@@ -32,3 +32,6 @@ D:\Dev\Game Dev\C# - MonoGame\Bloomstead\bin\Debug\net6.0\Content\sprites\object
 D:\Dev\Game Dev\C# - MonoGame\Bloomstead\bin\Debug\net6.0\Content\sprites\tools\how_spritesheet.xnb
 D:\Dev\Game Dev\C# - MonoGame\Bloomstead\bin\Debug\net6.0\Content\sprites\objects\tree.xnb
 D:\Dev\Game Dev\C# - MonoGame\Bloomstead\bin\Debug\net6.0\Content\sprites\items\logs_spritesheet.xnb
+D:\Dev\Game Dev\C# - MonoGame\Bloomstead\bin\Debug\net6.0\Content\sprites\items\fibers_spritesheet.xnb
+D:\Dev\Game Dev\C# - MonoGame\Bloomstead\bin\Debug\net6.0\Content\sprites\objects\crops\garlic_spritesheet.xnb
+D:\Dev\Game Dev\C# - MonoGame\Bloomstead\bin\Debug\net6.0\Content\sprites\ui\inventory_slot.xnb

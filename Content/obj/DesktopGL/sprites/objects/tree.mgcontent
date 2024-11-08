@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>D:/Dev/Game Dev/C# - MonoGame/Bloomstead/Content/sprites/objects/tree.png</SourceFile>
-  <SourceTime>2024-11-04T11:18:39.408123+01:00</SourceTime>
+  <SourceTime>2024-11-05T22:45:37.640853+01:00</SourceTime>
   <DestFile>D:/Dev/Game Dev/C# - MonoGame/Bloomstead/Content/bin/DesktopGL/sprites/objects/tree.xnb</DestFile>
-  <DestTime>2024-11-04T11:20:35.547983+01:00</DestTime>
+  <DestTime>2024-11-06T12:05:18.3557121+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

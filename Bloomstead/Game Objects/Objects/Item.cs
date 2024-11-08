@@ -5,7 +5,7 @@ namespace Bloomstead.Bloomstead.Game_Objects.Items;
 
 public class Item : GameObject
 {
-    public ItemModel.Item _model;
+    private ItemModel.Item _model;
 
     public Item(ItemModel.Item model) : base()
     {

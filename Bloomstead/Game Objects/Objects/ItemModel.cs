@@ -1,6 +1,6 @@
 using LumiEngine;
 
-namespace Bloomstead.Bloomstead.Game_Objects.Items;
+namespace Bloomstead.Bloomstead.Game_Objects;
 
 public static class ItemModel
 {
@@ -14,6 +14,7 @@ public static class ItemModel
     public static class Models
     {
         public static readonly Item ModelLog = new Item("Oak Log", ItemType.Material, Assets.Spritesheets.Items.Logs);
+        public static readonly Item ModelFiber = new Item("Fiber", ItemType.Material, Assets.Spritesheets.Items.Fibers);
     }
 
     public class Item

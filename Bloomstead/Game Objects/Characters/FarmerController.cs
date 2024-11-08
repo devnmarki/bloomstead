@@ -21,7 +21,7 @@ public class FarmerController : Component
     // Movement
     private Vector2 _input = Vector2.Zero;
     private float _moveSpeed = 300f;
-    private Directions _dir = Directions.Down;
+    private Directions _facingDirection = Directions.Down;
 
     // Hitbox
     private Hitbox _hitbox;
@@ -31,7 +31,7 @@ public class FarmerController : Component
     // Gathering
     private bool _isGathering = false;
     private Hoe _hoe;
-    private float _pickupRange = 75f;
+    private float _pickupRange = 40f;
 
     public FarmerController(TilemapManager tilemapManager)
     {
@@ -85,12 +85,12 @@ public class FarmerController : Component
         if (KeyboardHandler.IsDown(Keys.W))
         {
             _input.Y = -1f;
-            _dir = Directions.Up;
+            _facingDirection = Directions.Up;
         }
         else if (KeyboardHandler.IsDown(Keys.S))
         {
             _input.Y = 1f;
-            _dir = Directions.Down;
+            _facingDirection = Directions.Down;
         }
         else
         {
@@ -100,12 +100,12 @@ public class FarmerController : Component
         if (KeyboardHandler.IsDown(Keys.A))
         {
             _input.X = -1f;
-            _dir = Directions.Left;
+            _facingDirection = Directions.Left;
         }
         else if (KeyboardHandler.IsDown(Keys.D))
         {
             _input.X = 1f;
-            _dir = Directions.Right;
+            _facingDirection = Directions.Right;
         }
         else
         {
@@ -171,7 +171,10 @@ public class FarmerController : Component
             _hitbox.Valid = false;
         }
 
-        _hitbox.GetComponent<SpriteRenderer>().SpriteIndex = _hitbox.Valid ? 0 : 1;
+        if (!_hitbox.Valid)
+        {
+            _hitbox.Transform.Position = new Vector2(-1000, -1000);
+        }
     }
     
     private void CreateSoil()
@@ -260,7 +263,7 @@ public class FarmerController : Component
     {
         if (_input.X != 0 || _input.Y != 0) return;
 
-        switch (_dir)
+        switch (_facingDirection)
         {
             case Directions.Up:
                 _anim.PlayAnimation("idle_up");
@@ -284,7 +287,7 @@ public class FarmerController : Component
     {
         if (_input is { X: 0, Y: 0 }) return;
 
-        switch (_dir)
+        switch (_facingDirection)
         {
             case Directions.Up:
                 _anim.PlayAnimation("walk_up");

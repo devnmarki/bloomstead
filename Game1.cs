@@ -13,6 +13,7 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
+    private SpriteBatch _spriteBatchUI;
 
     public Game1()
     {
@@ -31,9 +32,11 @@ public class Game1 : Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
+        _spriteBatchUI = new SpriteBatch(GraphicsDevice);
 
         Config.Graphics = GraphicsDevice;
         Config.Batch = _spriteBatch;
+        Config.UIBatch = _spriteBatchUI;
         Config.Content = Content;
         Config.LoadContent();
         
@@ -72,6 +75,10 @@ public class Game1 : Game
         
         Config.Batch.Begin(sortMode: SpriteSortMode.BackToFront, samplerState: SamplerState.PointClamp, transformMatrix: Config.Camera.GetTransformation());
         SceneManager.RenderCurrentScene();
+        Config.Batch.End();
+        
+        Config.Batch.Begin(sortMode: SpriteSortMode.BackToFront, samplerState: SamplerState.PointClamp);
+        SceneManager.RenderCurrentSceneUI();
         Config.Batch.End();
         
         base.Draw(gameTime);
