@@ -7,10 +7,22 @@ namespace LumiEngine.UI;
 public class Image : GameObject
 {
     public Texture2D Texture { get; set; }
+    public Spritesheet Spritesheet { get; set; }
+    public int SpriteIndex { get; set; }
 
     public Image(Texture2D texture) : base()
     {
         Texture = texture;
+        Spritesheet = null;
+        SpriteIndex = 0;
+        Init();
+    }
+    
+    public Image(Spritesheet spritesheet, int spriteIndex) : base()
+    {
+        Texture = spritesheet.Texture;
+        Spritesheet = spritesheet;
+        SpriteIndex = spriteIndex;
         Init();
     }
     
@@ -20,8 +32,13 @@ public class Image : GameObject
         
         Transform.Scale = new Vector2(Config.GameScale + 2f);
 
-        if (Texture == null) return;
-        
-        AddComponent(new UIRenderer(Texture));
+        if (Texture != null)
+        {
+            AddComponent(new UIRenderer(Texture));
+        } 
+        else if (Spritesheet != null)
+        {
+            AddComponent(new UIRenderer(Spritesheet, SpriteIndex));
+        }
     }
 }

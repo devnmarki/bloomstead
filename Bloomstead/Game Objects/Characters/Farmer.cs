@@ -7,7 +7,20 @@ namespace Bloomstead.Bloomstead.Game_Objects;
 
 public class Farmer : GameObject
 {
+    private static Farmer instance;
+
+    public static Farmer Instance {
+        get
+        {
+            if (instance == null)
+                instance = new Farmer();
+            return instance;
+        }
+    }
+    
     public TilemapManager TilemapManager { get; set; }
+
+    public Inventory Inventory { get; private set; }
     
     protected override void Init()
     {
@@ -20,6 +33,7 @@ public class Farmer : GameObject
         
         AddComponents();
         LoadAnimations();
+        CreateInventory();
     }
 
     private void AddComponents()
@@ -31,6 +45,16 @@ public class Farmer : GameObject
         AddComponent(new FarmerController(TilemapManager));
     }
 
+    private void CreateInventory()
+    {
+        float inventoryX = Config.WindowWidth / 2f - 10f * (18f * Config.GameScale) / 2f;
+        float inventoryY = Config.WindowHeight - (32f * Config.GameScale);
+
+        Inventory = new Inventory { Transform = { Position = new Vector2(inventoryX, inventoryY) } };
+        
+        SceneManager.CurrentScene.AddGameObject(Inventory);
+    }
+    
     private void LoadAnimations()
     {
         var anim = GetComponent<Animator>();

@@ -5,11 +5,12 @@ namespace Bloomstead.Bloomstead.Game_Objects.Items;
 
 public class Item : GameObject
 {
-    private ItemModel.Item _model;
+    public ItemModel.Item Model { get; }
+    public bool IsPickedUp { get; set; } = false;
 
     public Item(ItemModel.Item model) : base()
     {
-        _model = model;
+        Model = model;
         Init();
     }
     
@@ -17,13 +18,13 @@ public class Item : GameObject
     {
         base.Init();
 
-        if (_model == null) return;
+        if (Model == null) return;
         
-        Name = _model.Name;
+        Name = Model.Name;
         
         Transform.Scale = new Vector2(Config.GameScale - 1f);
         
-        AddComponent(new SpriteRenderer(_model.Spritesheet, _model.Sprite) { LayerDepth = Globals.Layers.SoilTiles });
+        AddComponent(new SpriteRenderer(Model.Spritesheet, Model.Sprite) { LayerDepth = Globals.Layers.SoilTiles });
         AddComponent(new BoxCollider(new Vector2(8f * (Config.GameScale - 1f)), new Vector2(4f * Config.GameScale)));
     }
 }

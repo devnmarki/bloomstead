@@ -24,6 +24,7 @@ public class SceneManager
         if (_currentScene == null) return;
         
         _currentScene.GameObjects.Clear();
+        _currentScene.UIElements.Clear();
         _currentScene.Start();
 
         var gameObjects = new List<GameObject>(_currentScene.GameObjects);

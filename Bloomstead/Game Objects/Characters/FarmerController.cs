@@ -7,6 +7,7 @@ using Bloomstead.Bloomstead.Game_Objects.Tools;
 using LumiEngine;
 using LumiEngine.Input;
 using LumiEngine.LevelEditor;
+using LumiEngine.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -14,6 +15,8 @@ namespace Bloomstead.Bloomstead.Components;
 
 public class FarmerController : Component
 {
+    private Farmer _farmer;
+    
     // Components
     private Rigidbody _rb;
     private Animator _anim;
@@ -41,6 +44,8 @@ public class FarmerController : Component
     public override void OnStart()
     {
         base.OnStart();
+
+        _farmer = GameObject as Farmer;
         
         _rb = GameObject.GetComponent<Rigidbody>();
         _anim = GameObject.GetComponent<Animator>();
@@ -217,7 +222,7 @@ public class FarmerController : Component
 
     private void OnCollision(GameObject other)
     {
-        if (other is Item item)
+        if (other is Item item && !item.IsPickedUp)
             Pickup(item);
     }
 
@@ -238,7 +243,27 @@ public class FarmerController : Component
 
     private void Pickup(Item item)
     {
-        GameObject.DestroyGameObject(item);
+
+        foreach (var slot in _farmer.Inventory.Slots)
+        {
+            if (!slot.IsFull)
+            {
+                _farmer.Inventory.Items.Add(item);
+                
+                Image itemUi = new Image(item.Model.Spritesheet, item.Model.Sprite);
+                itemUi.GetComponent<UIRenderer>().LayerDepth = 500f;
+                itemUi.Transform.Scale = item.Transform.Scale;
+                itemUi.Transform.Position = slot.Transform.Position + new Vector2(25f);
+                SceneManager.CurrentScene.AddUIElement(itemUi);
+                slot.IsFull = true;
+                
+                GameObject.DestroyGameObject(item);
+        
+                item.IsPickedUp = true;
+                
+                break;
+            }
+        }
     }
     
     private void HandleAnimations()
